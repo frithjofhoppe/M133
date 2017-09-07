@@ -1,0 +1,33 @@
+.playbutton
+{
+  width:100px;
+  height:100px;
+}
+
+.statusButton
+{
+  width:50px;
+  height: 20px;
+}
+
+.chkBox
+{
+
+}
+
+.player1selected
+{
+    background-color: green;
+}
+
+.player2selected
+{
+    background-color: red;
+}
+
+#orgnaization
+{
+  position: fixed;
+  top:90px;
+  left:400px;
+}

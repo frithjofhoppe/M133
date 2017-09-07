@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="index.css" >
+  </head>
+  <body>
+    <h1>Tic Tac Toe</h1>
+    <button id="btn1" name="00" class="playbutton"></button>
+    <button id="btn2" name="01" class="playbutton"></button>
+    <button id="btn3" name="02"class="playbutton"></button>
+    <br>
+    <button id="btn4" name="10" class="playbutton"></button>
+    <button id="btn5" name="11" class="playbutton"></button>
+    <button id="btn6" name="12" class="playbutton"></button>
+    <br>
+    <button id="btn7" name="20" class="playbutton"></button>
+    <button id="btn8" name="21" class="playbutton"></button>
+    <button id="btn9" name="22"class="playbutton"></button>
+    <div id="orgnaization">
+    <div id="controlGameKind">
+      <p>Typ des Spiels</p>
+      <ul>
+         <input type="checkbox" id="mvm" class="chkBox"><li>Mensch vs Mensch</li>
+          <label>Spieler 1:<label><input type="text" id="txtSpieler1">
+          <label>Spieler 2:<label><input type="text" id="txtSpieler2"><br>
+         <input type="checkbox" id="mvp" class="chkBox"><li>Mensch vs PC</li>
+         <input type="checkbox" id="pvp" class="chkBox"><li>PC vs PC</li>
+      </ul>
+    </div>
+    <div id="controlStatus">
+      <button id="btnStart" class="statusButton">Start</button>
+      <button id="btnStop" class="statusButton">Stop</button>
+    </div>
+    <div id="result">
+      <label id="result_winnerMailAddress"></label>
+    </div>
+  </div>
+    <script src="index.js"></script>
+  </body>
+</html>

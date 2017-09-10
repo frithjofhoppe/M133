@@ -25,6 +25,28 @@
     background-color: red;
 }
 
+.result
+{
+
+}
+
+body
+{
+  font-family: "Segoe UI light";
+}
+
+#result_winnerMailAddress
+{
+    width: 305px;
+    border-style:solid;
+    border: 5 5 5 5;
+    border-color: green;
+    position: fixed;
+    left:5px;
+    top:400px;
+    background-color: white;
+}
+
 #orgnaization
 {
   position: fixed;

@@ -156,19 +156,23 @@ function isGameRoundFinished() {
 }
 
 function setResult(name,anyone) {
+  txtWinner.style.visibility = "visible";
   if(anyone==false)
   {
     if(name=="pl1")
     {
       txtWinner.innerHTML = "Der Spieler: " + txtSpieler1.value + " hat gewonnen";
+      txtWinner.style.borderColor = "green";
     }
     else {
       txtWinner.innerHTML = "Der Spieler: " + txtSpieler2.value + " hat gewonnen";
+      txtWinner.style.borderColor = "red";
     }
   }
   else
   {
       txtWinner.innerHTML = name;
+      txtWinner.style.borderColor = "black";
   }
 }
 
@@ -194,6 +198,7 @@ function changeTurn() {
 
 function startButton_Action() {
   txtWinner.innerHTML ="";
+  txtWinner.style.visibility="hidden";
   var isSetted = false;
   var isCorrect = false;
   var name = "";
@@ -261,6 +266,7 @@ function stopButton_Action() {
 
 window.onload = function() {
   disableFieldButton(true);
+  txtWinner.style.visibility="hidden";
 };
 startButton.addEventListener('click', startButton_Action, false);
 stopButton.addEventListener('click', stopButton_Action, false);

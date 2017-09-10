@@ -76,12 +76,12 @@ function checkPlayEnd() {
   var result = isGameRoundFinished();
   var areFilled = arePlayButtonValuesFill();
   if ((arePlayButtonValuesFill() && result[0] == true) || result[0]) {
-    setResult(result[1]);
+    setResult(result[1],false);
     window.setTimeout(setDefaultCondition, 500);
     disableFieldButton(true);
     disableGameControlElement(false);
-  } else if (result[0] == true) {
-    setResult("");
+  } else if(arePlayButtonValuesFill()){
+    setResult("Spieleende: Unentschieden",true);
     window.setTimeout(setDefaultCondition, 500);
     disableFieldButton(true);
     disableGameControlElement(false);
@@ -158,9 +158,15 @@ function isGameRoundFinished() {
 function setResult(name,anyone) {
   if(anyone==false)
   {
-    txtWinner.innerHTML = "Der Spieler: " + name + " hat gewonnen";
+    if(name=="pl1")
+    {
+      txtWinner.innerHTML = "Der Spieler: " + txtSpieler1.value + " hat gewonnen";
+    }
+    else {
+      txtWinner.innerHTML = "Der Spieler: " + txtSpieler2.value + " hat gewonnen";
+    }
   }
-  else if
+  else
   {
       txtWinner.innerHTML = name;
   }

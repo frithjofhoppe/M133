@@ -8,7 +8,7 @@ var txtWinner = document.getElementById('result_winnerMailAddress');
 
 var divGameKind = document.getElementById('controlGameKind').getElementsByTagName('*');
 
-var isPlayerOneOnTurn = false;
+var isPlayerOneOnTurn = true;
 var isPlayRunning = false;
 var playMode = "";
 
@@ -40,6 +40,8 @@ function playButton_Click(e) {
 function setDefaultCondition() {
   clearPlayButtonColors();
   clearPlayButtonValues();
+  isPlayerOneOnTurn = true;
+
 }
 
 function disableFieldButton(condition) {
@@ -72,11 +74,17 @@ function setPlayButtonValues(number1, number2, player) {
 
 function checkPlayEnd() {
   var result = isGameRoundFinished();
-  if (arePlayButtonValuesFill()) {
-    window.setTimeout(setDefaultCondition, 500);
-  } else if (result[0] == true) {
+  var areFilled = arePlayButtonValuesFill();
+  if ((arePlayButtonValuesFill() && result[0] == true) || result[0]) {
     setResult(result[1]);
     window.setTimeout(setDefaultCondition, 500);
+    disableFieldButton(true);
+    disableGameControlElement(false);
+  } else if (result[0] == true) {
+    setResult("");
+    window.setTimeout(setDefaultCondition, 500);
+    disableFieldButton(true);
+    disableGameControlElement(false);
   }
 }
 
@@ -97,23 +105,22 @@ function isGameRoundFinished() {
       nmb2 = 0;
       referenceA = playButtonValues[nmb1][nmb2];
       referenceB = playButtonValues[nmb2][nmb1];
-      window.alert(referenceA + " a;" + referenceB + " b");
       for (var b = 0; b < 3; b++) {
         if (playButtonValues[nmb1][nmb2] != referenceA || referenceA == "-") {
           pl1 = false;
         }
-        if (playButtonValues[nmb2][nmb1] != referenceB || referenceA == "-") {
+        if (playButtonValues[nmb2][nmb1] != referenceB || referenceB == "-") {
           pl2 = false;
         }
         nmb2++;
       }
       if (pl1) {
         back[0] = true;
-        back[1] = txtSpieler1.value;
+        back[1] = referenceA;
       }
       if (pl2) {
         back[0] = true;
-        back[1] = txtSpieler2.value;
+        back[1] = referenceB;
       }
       pl1 = true;
       pl2 = true;
@@ -136,20 +143,27 @@ function isGameRoundFinished() {
 
       if (pl1) {
         back[0] = true;
-        back[1] = txtSpieler1.value;
+        back[1] = referenceA;
       }
       if (pl2) {
         back[0] = true;
-        back[1] = txtSpieler2.value;
+        back[1] = referenceA;
       }
     }
   }
-  window.alert(back[0] + "|back|"+back[1]);
+//  window.alert(back[0] + "|back|"+back[1]);
   return back;
 }
 
-function setResult(name) {
-  txtWinner.innerHTML = "Der Spieler: " + name + " hate gewonnen";
+function setResult(name,anyone) {
+  if(anyone==false)
+  {
+    txtWinner.innerHTML = "Der Spieler: " + name + " hat gewonnen";
+  }
+  else if
+  {
+      txtWinner.innerHTML = name;
+  }
 }
 
 function arePlayButtonValuesFill() {
@@ -173,6 +187,7 @@ function changeTurn() {
 }
 
 function startButton_Action() {
+  txtWinner.innerHTML ="";
   var isSetted = false;
   var isCorrect = false;
   var name = "";
@@ -235,6 +250,7 @@ function stopButton_Action() {
   setDefaultCondition();
   disableFieldButton(true);
   disableGameControlElement(false);
+  txtWinner.innerHTML ="";
 }
 
 window.onload = function() {

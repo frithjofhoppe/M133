@@ -2,6 +2,10 @@ var playButton = document.getElementsByClassName('playbutton');
 var startButton = document.getElementById('btnStart');
 var stopButton = document.getElementById('btnStop');
 var chkBoxes = document.getElementsByClassName('chkBox');
+var txtEmail1 = document.getElementById('txtSpieler1');
+var txtEmail2 = document.getElementById('txtSpieler2');
+
+var divGameKind = document.getElementById('controlGameKind').getElementsByTagName('*');
 
 var isPlayerOneOnTurn = false;
 var isPlayRunning = false;
@@ -41,11 +45,11 @@ function setDefaultCondition()
   clearPlayButtonValues();
 }
 
-function setStartStatus()
+function disableFieldButton(condition)
 {
   for(var a = 0; a < playButton.length; a++)
   {
-    playButton[a].setAttribute("disabled","disabled")
+    playButton[a].disabled = condition;
   }
 }
 
@@ -67,7 +71,6 @@ function clearPlayButtonValues()
 
 function clearPlayButtonColors()
 {
-  window.alert(playButton.length);
   for(var a = 0; a < playButton.length; a++)
   {
     playButton[a].className = "playbutton";
@@ -123,30 +126,65 @@ function changeTurn()
 function startButton_Action()
 {
   var isSetted = false;
+  var isCorrect = false;
   var name = "";
   for(var a = 0; a < chkBoxes.length; a++)
   {
     if(chkBoxes[a].checked && isSetted==false)
     {
       isSetted = true;
+      isCorrect = true;
       name = chkBoxes[a].getAttribute("id");
     }
-    else if(chkBoxes[a].checked==true && isSetted)
+    else if(chkBoxes[a].checked && isSetted)
     {
-        window.alert("Sie haben mehrer Optionen ausgewählt");
+        isCorrect = false;
         break;
     }
   }
 
-  if(isSetted)
+  if(isSetted && isCorrect)
   {
     checkOption(name);
   }
+  else if(!isSetted)
+  {
+      window.alert("Sie haben keinen Spiel-Typ ausgewählt");
+  }
+  else if (!isCorrect)
+  {
+      window.alert("Sie haben mehrere Optionen gewählt");
+  }
+}
+
+function disableGameControlElement(condition)
+{
+    for(var a = 0; a < divGameKind.length; a++)
+    {
+      divGameKind[a].disabled = condition;
+    }
+    btnStart.disabled = condition;
 }
 
 function optionMVM()
 {
-
+  var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+  if(filter.test(txtSpieler2.value) && filter.test(txtSpieler1.value))
+  {
+    if(txtSpieler1.value !== txtSpieler2.value)
+    {
+      disableFieldButton(false);
+      disableGameControlElement(true);
+    }
+    else
+    {
+        window.alert("Geben sie unterschiedliche Emailadressen ein");
+    }
+  }
+  else
+  {
+      window.alert("Geben sie valide Emailadressen ein");
+  }
 }
 
 function checkOption(option)
@@ -162,11 +200,13 @@ function checkOption(option)
 
 function stopButton_Action()
 {
-
+  setDefaultCondition();
+  disableFieldButton(true);
+  disableGameControlElement(false);
 }
 
 window.onload = function(){
-  setStartStatus();
+  disableFieldButton(true);
 };
 startButton.addEventListener('click',startButton_Action,false);
 stopButton.addEventListener('click',stopButton_Action,false);

@@ -4,6 +4,7 @@ var stopButton = document.getElementById('btnStop');
 var chkBoxes = document.getElementsByClassName('chkBox');
 var txtEmail1 = document.getElementById('txtSpieler1');
 var txtEmail2 = document.getElementById('txtSpieler2');
+var txtWinner = document.getElementById('result_winnerMailAddress');
 
 var divGameKind = document.getElementById('controlGameKind').getElementsByTagName('*');
 
@@ -84,15 +85,67 @@ function setPlayButtonValues(number1,number2,player)
 
 function checkPlayEnd()
 {
+  var result = isGameRoundFinished();
   if(arePlayButtonValuesFill())
   {
-    window.setTimeout(setDefaultCondition,500 );
+    window.setTimeout(setDefaultCondition,500);
+  }
+  else if(result[0] == true)
+  {
+    setResult(result[1]);
+    window.setTimeout(setDefaultCondition,500);
   }
 }
 
-function evaluateResult()
+function isGameRoundFinished()
 {
+  var pl1 = true;
+  var pl2 = true;
+  var back = [false,"nothing"];
+  var nmb1 = 0;
+  var nmb2 = 0;
+  var referenceA = "";
+  var referenceB = "";
+  var temp = false;
+  var counter = 0;
 
+  for(var a = 0; a < 4; a++)
+  {
+    if(a != 3)
+    {
+      nmb1 = a;
+      nmb2 = 0;
+      referenceA = playButtonValues[nmb1][nmb2];
+      referenceB = playButtonValues[nmb2][nmb1];
+      for(var b = 0; b < 3, b++)
+      {
+        if(playButtonValues[nmb1][nmb2] != referenceA) {pl1 = false;}
+        if(playButtonValues[nmb2][nmb1] != referenceB) {pl2 = false;}
+        nmb2++;
+      }
+      pl1=true;
+      pl2=true;
+    }
+    else
+    {
+      referenceA = playButtonValues[0][0];
+      for(var c = 0; c < 3; c++)
+      {
+        if(playButtonValues[c][c] != referenceA) {pl1 = false;}
+      }
+      if(playButtonValues[2][0] != referenceA) {pl2 = false;}
+      if(playButtonValues[1][1] != referenceA) {pl2 = false;}
+      if(playButtonValues[0][2] != referenceA) {pl2 = false;}
+    }
+    if(pl1){back[0]=true;back[1]=txtSpieler1.value;}
+    if(pl2){back[0]=true;back[1]=txtSpieler2.value;}
+  }
+  return back;
+}
+
+function setResult(name)
+{
+  txtWinner.innerHTML ="Der Spieler: " + name + " hate gewonnen";
 }
 
 function arePlayButtonValuesFill()

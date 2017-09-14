@@ -22,6 +22,7 @@ var playButtonValues = [
 
 function playButton_Click(e) {
   if (this.className != "playbutton player1selected" && this.className != "playbutton player2selected") {
+    setInformation("default","");
     name = this.getAttribute("name");
     if (isPlayerOneOnTurn) {
       this.className += " player1selected";
@@ -33,7 +34,8 @@ function playButton_Click(e) {
     checkPlayEnd();
     changeTurn();
   } else {
-    window.alert("Der button wurde bereits gewählt");
+    //window.alert("Der button wurde bereits gewählt");
+    setInformation("Der button wurde bereits gewählt","info");
   }
 }
 
@@ -155,6 +157,30 @@ function isGameRoundFinished() {
   return back;
 }
 
+function setInformation(text,type)
+{
+  if(text == "default")
+  {
+    txtWinner.style.borderColor ="white";
+    txtWinner.innerHTML = "";
+  }
+  else if(text != "")
+  {
+    if(type == "normal")
+    {
+      txtWinner.style.visibility = "visible";
+      txtWinner.style.borderColor = "black";
+      txtWinner.innerHTML = text;
+    }
+    else if (type == "info")
+    {
+      txtWinner.style.visibility = "visible";
+      txtWinner.style.borderColor = "gold";
+      txtWinner.innerHTML = "ACTHUNG: " + text;
+    }
+  }
+}
+
 function setResult(name,anyone) {
   txtWinner.style.visibility = "visible";
   if(anyone==false)
@@ -231,7 +257,24 @@ function disableGameControlElement(condition) {
 
 function optionMVM() {
   var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-  if (filter.test(txtSpieler2.value) && filter.test(txtSpieler1.value)) {
+
+  if(txtSpieler1.validity.valid && txtSpieler2.validity.valid)
+  {
+    if(txtSpieler1.value != txtSpieler2.value)
+    {
+      disableFieldButton(false);
+      disableGameControlElement(true);
+    }
+    else
+    {
+        window.alert("Die Mailadressen sind identisch");
+    }
+  }
+  else
+  {
+      window.alert("Geben sie valide Mailadresse ein");
+  }
+/*if (filter.test(txtSpieler2.value) && filter.test(txtSpieler1.value)) {
     if (txtSpieler1.value !== txtSpieler2.value) {
       disableFieldButton(false);
       disableGameControlElement(true);
@@ -240,7 +283,7 @@ function optionMVM() {
     }
   } else {
     window.alert("Geben sie valide Emailadressen ein");
-  }
+  }*/
 }
 
 function checkOption(option) {
@@ -261,7 +304,7 @@ function stopButton_Action() {
   setDefaultCondition();
   disableFieldButton(true);
   disableGameControlElement(false);
-  txtWinner.innerHTML ="";
+  setInformation("default");
 }
 
 window.onload = function() {

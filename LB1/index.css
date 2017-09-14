@@ -53,3 +53,8 @@ body
   top:90px;
   left:400px;
 }
+
+:invalid
+{
+  border-color: red;
+}

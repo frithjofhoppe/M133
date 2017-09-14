@@ -35,7 +35,7 @@ function playButton_Click(e) {
     changeTurn();
   } else {
     //window.alert("Der button wurde bereits gewählt");
-    setInformation("Der button wurde bereits gewählt","info");
+    setInformation("Der button wurde bereits gewählt","warning");
   }
 }
 
@@ -172,7 +172,7 @@ function setInformation(text,type)
       txtWinner.style.borderColor = "black";
       txtWinner.innerHTML = text;
     }
-    else if (type == "info")
+    else if (type == "warning")
     {
       txtWinner.style.visibility = "visible";
       txtWinner.style.borderColor = "gold";
@@ -223,6 +223,7 @@ function changeTurn() {
 }
 
 function startButton_Action() {
+  setInformation("default");
   txtWinner.innerHTML ="";
   txtWinner.style.visibility="hidden";
   var isSetted = false;
@@ -242,9 +243,11 @@ function startButton_Action() {
   if (isSetted && isCorrect) {
     checkOption(name);
   } else if (!isSetted) {
-    window.alert("Sie haben keinen Spiel-Typ ausgewählt");
+    setInformation("Sie haben keinen Spiel-Typ ausgewählt","warning");
+    //window.alert("Sie haben keinen Spiel-Typ ausgewählt");
   } else if (!isCorrect) {
-    window.alert("Sie haben mehrere Optionen gewählt");
+    setInformation("Sie haben mehrere Optionen gewählt","warning");
+    //window.alert("Sie haben mehrere Optionen gewählt");
   }
 }
 
@@ -258,32 +261,26 @@ function disableGameControlElement(condition) {
 function optionMVM() {
   var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 
-  if(txtSpieler1.validity.valid && txtSpieler2.validity.valid)
+  if(txtSpieler1.validity.valid && txtSpieler2.validity.valid && txtSpieler1.value.replace(/^\s+|\s+$/g,'').length != 0)
   {
-    if(txtSpieler1.value != txtSpieler2.value)
+    if(txtSpieler1.value == txtSpieler2.value)
     {
-      disableFieldButton(false);
-      disableGameControlElement(true);
+      setInformation("Die Mailadressen sind identisch","warning");
     }
     else
     {
-        window.alert("Die Mailadressen sind identisch");
+      disableFieldButton(false);
+      disableGameControlElement(true);
     }
+  }
+  else if(txtSpieler1.value.replace(/^\s+|\s+$/g,'').length == 0)
+  {
+    setInformation("Mailadressen eingeben","warning");
   }
   else
   {
-      window.alert("Geben sie valide Mailadresse ein");
+      setInformation("Ungültige MailAdresse","warning");
   }
-/*if (filter.test(txtSpieler2.value) && filter.test(txtSpieler1.value)) {
-    if (txtSpieler1.value !== txtSpieler2.value) {
-      disableFieldButton(false);
-      disableGameControlElement(true);
-    } else {
-      window.alert("Geben sie unterschiedliche Emailadressen ein");
-    }
-  } else {
-    window.alert("Geben sie valide Emailadressen ein");
-  }*/
 }
 
 function checkOption(option) {

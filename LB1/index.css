@@ -54,7 +54,24 @@ body
   left:400px;
 }
 
+input[type='checkbox']
+{
+  float:left;
+}
+
+.list
+{
+  margin-bottom: 10px;
+}
+
+label
+{
+  float:none;
+}
+
 :invalid
 {
   border-color: red;
+  border: 5 5 5 5;
+  border-style: solid;
 }

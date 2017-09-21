@@ -2,6 +2,7 @@
 {
   width:100px;
   height:100px;
+  background-color: white
 }
 
 .statusButton
@@ -17,12 +18,16 @@
 
 .player1selected
 {
-    background-color: green;
+    /*background-color: green;*/
+    background-image: url('x-view.svg');
+    background-size: cover;
 }
 
 .player2selected
 {
-    background-color: red;
+  /*  background-color: red;*/
+    background-image: url('o-view.svg');
+    background-size: cover;
 }
 
 .result

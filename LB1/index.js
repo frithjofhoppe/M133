@@ -261,9 +261,9 @@ function disableGameControlElement(condition) {
 function optionMVM() {
   var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 
-  if(txtSpieler1.validity.valid && txtSpieler2.validity.valid && txtSpieler1.value.replace(/^\s+|\s+$/g,'').length != 0)
+  if(txtEmail1.validity.valid && txtEmail2.validity.valid && txtEmail1.value.replace(/^\s+|\s+$/g,'').length != 0)
   {
-    if(txtSpieler1.value == txtSpieler2.value)
+    if(txtEmail1.value == txtEmail2.value)
     {
       setInformation("Die Mailadressen sind identisch","warning");
     }
@@ -273,7 +273,7 @@ function optionMVM() {
       disableGameControlElement(true);
     }
   }
-  else if(txtSpieler1.value.replace(/^\s+|\s+$/g,'').length == 0)
+  else if(txtEmail1.value.replace(/^\s+|\s+$/g,'').length == 0)
   {
     setInformation("Mailadressen eingeben","warning");
   }
@@ -281,6 +281,7 @@ function optionMVM() {
   {
       setInformation("Ungültige MailAdresse","warning");
   }
+
 }
 
 function checkOption(option) {

@@ -65,16 +65,27 @@ function clearPlayButtonValues() {
   }
 }
 
+/*
+-Setzt Standardwerte für jeden Spielfeld-Button
+*/
 function clearPlayButtonColors() {
   for (var a = 0; a < playButton.length; a++) {
     playButton[a].className = "playbutton";
   }
 }
 
+/*
+-Setzt in das Array der Spielfeld-Buttons den Wert des aufrufenden Spielers
+return:
+*/
 function setPlayButtonValues(number1, number2, player) {
   playButtonValues[number1][number2] = player;
 }
 
+/*
+Überprüft ob das Spiel fertig ist
+return:
+*/
 function checkPlayEnd() {
   var result = isGameRoundFinished();
   var areFilled = arePlayButtonValuesFill();
@@ -91,6 +102,10 @@ function checkPlayEnd() {
   }
 }
 
+/*
+-Überprüft ob das aktuelle Spiel mit einem eindeutigem Sieg geendet hat
+return:array mit dem Status, spieler
+*/
 function isGameRoundFinished() {
   var pl1 = true;
   var pl2 = true;
@@ -158,6 +173,10 @@ function isGameRoundFinished() {
   return back;
 }
 
+/*
+-Zeigt Informationen mit verschiedenen Farben an
+return:
+*/
 function setInformation(text,type)
 {
   if(text == "default")
@@ -188,6 +207,10 @@ function setInformation(text,type)
   }
 }
 
+/*
+-Zeigt den Namen des Gewinners an
+return:
+*/
 function setResult(name,anyone) {
   txtWinner.style.visibility = "visible";
   if(anyone==false)
@@ -209,6 +232,10 @@ function setResult(name,anyone) {
   }
 }
 
+/*
+-Überprüft ob alle Felder bereits ausgewählt wordne sind
+return:boolean
+*/
 function arePlayButtonValuesFill() {
   var back = true;
   for (var a = 0; a < 3; a++) {
@@ -221,6 +248,9 @@ function arePlayButtonValuesFill() {
   return back;
 }
 
+/*
+-Wechselt den aktuellen Spielerstatus
+*/
 function changeTurn() {
   if (isPlayerOneOnTurn) {
     isPlayerOneOnTurn = false;
@@ -229,6 +259,9 @@ function changeTurn() {
   }
 }
 
+/*
+-OnClick-EventListener für den Start-Button
+*/
 function startButton_Action() {
   setInformation("default");
   stopButton.disabled = false;
@@ -259,6 +292,9 @@ function startButton_Action() {
   }
 }
 
+/*
+
+*/
 function disableGameControlElement(condition) {
   for (var a = 0; a < divGameKind.length; a++) {
     divGameKind[a].disabled = condition;
@@ -266,6 +302,13 @@ function disableGameControlElement(condition) {
   btnStart.disabled = condition;
 }
 
+/*
+Option 1 => Mensch vs Mensch
+-Validiert die eigegebenen Emailadressen
+-Überprüft ob die Eingaben identisch sind
+-Deaktiviert Steuerelemente
+-Aktiviert Spielfeldelemente
+*/
 function optionMVM() {
   var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 
@@ -303,6 +346,9 @@ function optionPVP()
   setInformation("Modus nicht implementiert","information");
 }
 
+/*
+-Prüft welcher Spiel-Modus ausgewäthlt worden ist
+*/
 function checkOption(option) {
   switch (option) {
     case "mvm":
@@ -319,6 +365,9 @@ function checkOption(option) {
   }
 }
 
+/*
+-OnClick-EventListener für den Stop/Reset-Button
+*/
 function stopButton_Action() {
   setDefaultCondition();
   disableFieldButton(true);
@@ -330,6 +379,9 @@ function stopButton_Action() {
   chkBoxes[0].checked = true;
 }
 
+/*
+-OnClick-EventListener für die checkboxes
+*/
 function clickCheckBox_Action()
 {
     setInformation("default");
@@ -354,6 +406,9 @@ function clickCheckBox_Action()
     }
 }
 
+/*
+-Dient zum setzen der Standardwerte nach dem Laden der Seite
+*/
 window.onload = function() {
   disableFieldButton(true);
   txtWinner.style.visibility="hidden";
@@ -365,10 +420,16 @@ window.onload = function() {
 startButton.addEventListener('click', startButton_Action, false);
 stopButton.addEventListener('click', stopButton_Action, false);
 
+/*
+-Erstellt für jeden Spielfeld-Button einen EventListener
+*/
 for (var i = 0; i < 9; i++) {
   playButton[i].addEventListener('click', playButton_Click, false);
 }
 
+/*
+-Erstellt für jede Radiobox einen EventListener
+*/
 for (var i = 0; i < 3; i++)
 {
   chkBoxes[i].addEventListener('click',clickCheckBox_Action,false);

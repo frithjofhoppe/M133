@@ -40,6 +40,12 @@ function playButton_Click(e) {
   }
 }
 
+/*
+-Setzt Standard für
+-  Spielfeld-Button-Werte
+-  Spielfeld-Button-Farben
+-  Lässt den ersten Spieler beginnen
+*/
 function setDefaultCondition() {
   clearPlayButtonColors();
   clearPlayButtonValues();
@@ -47,6 +53,9 @@ function setDefaultCondition() {
 
 }
 
+/*
+-Setzt den boolischen Wert ob ein Spielfeld-Button Deaktiviert ist
+*/
 function disableFieldButton(condition) {
   for (var a = 0; a < playButton.length; a++) {
     playButton[a].disabled = condition;
@@ -57,6 +66,9 @@ function enableElements() {
 
 }
 
+/*
+-Setzt Standardwerte für jeden Spielfeld-Button
+*/
 function clearPlayButtonValues() {
   for (var a = 0; a < 3; a++) {
     for (var b = 0; b < 3; b++) {
@@ -66,7 +78,8 @@ function clearPlayButtonValues() {
 }
 
 /*
--Setzt Standardwerte für jeden Spielfeld-Button
+-Setzt Starndardklassen für jeden Spielfeld-Button
+return:
 */
 function clearPlayButtonColors() {
   for (var a = 0; a < playButton.length; a++) {

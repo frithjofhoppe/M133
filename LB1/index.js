@@ -4,6 +4,7 @@ var stopButton = document.getElementById('btnStop');
 var chkBoxes = document.getElementsByClassName('chkBox');
 var txtEmail1 = document.getElementById('txtSpieler1');
 var txtEmail2 = document.getElementById('txtSpieler2');
+var txtEmail3 = document.getElementById('txtSpieler3');
 var txtWinner = document.getElementById('result_winnerMailAddress');
 
 var divGameKind = document.getElementById('controlGameKind').getElementsByTagName('*');
@@ -178,6 +179,12 @@ function setInformation(text,type)
       txtWinner.style.borderColor = "gold";
       txtWinner.innerHTML = "ACTHUNG: " + text;
     }
+    else if (type == "information")
+    {
+      txtWinner.style.visibility = "visible";
+      txtWinner.style.borderColor = "blue";
+      txtWinner.innerHTML = "INFO: " + text;
+    }
   }
 }
 
@@ -224,6 +231,7 @@ function changeTurn() {
 
 function startButton_Action() {
   setInformation("default");
+  stopButton.disabled = false;
   txtWinner.innerHTML ="";
   txtWinner.style.visibility="hidden";
   var isSetted = false;
@@ -271,6 +279,7 @@ function optionMVM() {
     {
       disableFieldButton(false);
       disableGameControlElement(true);
+      setInformation("Das spiel wurde gestartet","information");
     }
   }
   else if(txtEmail1.value.replace(/^\s+|\s+$/g,'').length == 0)
@@ -284,14 +293,26 @@ function optionMVM() {
 
 }
 
+function optionMVP()
+{
+  setInformation("Modus nicht implementiert","information");
+}
+
+function optionPVP()
+{
+  setInformation("Modus nicht implementiert","information");
+}
+
 function checkOption(option) {
   switch (option) {
     case "mvm":
       optionMVM();
       break;
     case "mvp":
+      optionMVP();
       break;
     case "pvp":
+      optionPVP();
       break;
     default:
       break;
@@ -303,15 +324,52 @@ function stopButton_Action() {
   disableFieldButton(true);
   disableGameControlElement(false);
   setInformation("default");
+  txtEmail1.value = ""
+  txtEmail2.value = ""
+  txtEmail3.disabled = true;
+  chkBoxes[0].checked = true;
+}
+
+function clickCheckBox_Action()
+{
+    setInformation("default");
+    switch(this.id)
+    {
+      case "mvm":
+        txtEmail2.disabled = false;
+        txtEmail1.disabled = false;
+        txtEmail3.disabled = true;
+        break;
+      case "mvp":
+        txtEmail2.disabled = true;
+        txtEmail1.disabled = true;
+        txtEmail3.disabled = false;
+        break;
+      case "pvp":
+        txtEmail2.disabled = true;
+        txtEmail1.disabled = true;
+        txtEmail3.disabled = true;
+        break;
+      default:break;
+    }
 }
 
 window.onload = function() {
   disableFieldButton(true);
   txtWinner.style.visibility="hidden";
+  txtEmail2.disabled = true;
+  txtEmail1.disabled = true;
+  txtEmail3.disabled = true;
+  stopButton.disabled = true;
 };
 startButton.addEventListener('click', startButton_Action, false);
 stopButton.addEventListener('click', stopButton_Action, false);
 
 for (var i = 0; i < 9; i++) {
   playButton[i].addEventListener('click', playButton_Click, false);
+}
+
+for (var i = 0; i < 3; i++)
+{
+  chkBoxes[i].addEventListener('click',clickCheckBox_Action,false);
 }

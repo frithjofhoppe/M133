@@ -21,16 +21,18 @@
     <div id="controlGameKind">
       <p>Typ des Spiels</p>
       <!-- <ul> -->
+
         <div class="list">
-          <input type="checkbox" id="mvm" class="chkBox"><label>Mensch vs Mensch</label>
-          <div><label>Spieler 1:<label><input type="email" id="txtSpieler1"></div>
-          <div><label>Spieler 2:<label><input type="email" id="txtSpieler2"></div>
+          <input type="radio" id="mvm" class="chkBox" name="chk"><label>Mensch vs Mensch</label>
+          <div><label>Spieler 1:<label><input type="email" id="txtSpieler1" placeholder="Spieler 1"></div>
+          <div><label>Spieler 2:<label><input type="email" id="txtSpieler2" placeholder="Spieler 2"></div>
         </div>
         <div class="list">
-         <input type="checkbox" id="mvp" class="chkBox">Mensch vs PC
-          <div><label>Spieler 1:<label><input type="email" id="txtSpieler3"></div>
-         <input type="checkbox" id="pvp" class="chkBox">PC vs PC
+         <input type="radio" id="mvp" class="chkBox" name="chk">Mensch vs PC
+          <div><label>Spieler 1:<label><input type="email" id="txtSpieler3"  placeholder="Spieler 1"></div>
+         <input type="radio" id="pvp" class="chkBox" name="chk">PC vs PC
         </div>
+
       <!--  </ul>-->
     </div>
     <div id="controlStatus">

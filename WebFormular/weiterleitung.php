@@ -5,19 +5,43 @@
   $txtBenutzeradresse = $_POST['txtBenutzeradresse'];
   $txtPasswort = $_POST['txtPasswort'];
 
-  function setPassword(&$pwIn)
+  $strUsernameLength = strlen($txtBenutzername);
+
+  function withoutSpace(&$input)
   {
-      $len = strlen($pwIn);
-      if($len > 5)
-      {
-          $pwIn = substr($pwIn,0,4);
-          echo "true";
-      }
-      echo "something";
-      $pwIn = $pwIn . "********";
+      $input = str_replace(' ','',$input);
   }
 
-  setPassword($txtPasswort);
+  function replace2($strValue,$strNew, &$input)
+  {
+    $input = str_replace($strValue,$strNew,$input);
+  }
+
+  function toUpper(&$input)
+  {
+      $input =strtoupper($input);
+  }
+
+  function onlyAscii(&$input)
+  {
+    echo "true";
+    $charArray = str_split($input);
+    $back = [];
+
+    foreach($charArray as $char)
+    {
+      if(ord($char) <= 127)
+      {
+        array_push($back,$char);
+      }
+    }
+    $input = implode("",$back);
+  }
+
+  toUpper($txtBenutzername);
+  withoutSpace($txtPassword);
+  replace2("@","[at]",$txtBenutzeradresse);
+  onlyAscii($txtBenutzername);
 
   echo "Eingegebene Daten";
   echo "<table>";
